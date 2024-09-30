@@ -9,6 +9,7 @@ public class ControllerCHA : MonoBehaviour
     public float speed = 5f;
     public float jumpHeight = 2f;
     public float dashDistance = 5f;
+    public float dashDuration = 0.2f;  // 대쉬 지속 시간 추가
 
     private Animator animator;
 
@@ -24,6 +25,7 @@ public class ControllerCHA : MonoBehaviour
     public float groundCheckDistance = 0.3f;
 
     private Vector3 calcVelocity;
+    private bool isDashing = false;  // 대쉬 상태를 추적하는 변수
 
     #endregion Variables
     void Start()
@@ -45,12 +47,11 @@ public class ControllerCHA : MonoBehaviour
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         characterController.Move(move * Time.deltaTime * speed);
 
-        if (move != Vector3.zero) // 입력이 진행되고 있으면
+        if (move != Vector3.zero && !isDashing) // 이동 중이며 대쉬 중이 아닌 경우
         {
             transform.forward = move; // 입력한 방향으로 설정한다.
             animator.SetBool("Move", true); // Move 애니메이션 활성화
         }
-
         else
         {
             animator.SetBool("Move", false); // Move 애니메이션 비활성화
@@ -61,14 +62,11 @@ public class ControllerCHA : MonoBehaviour
         {
             calcVelocity.y += Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
         }
+
         //Process dash input
-        if (Input.GetButtonDown("Dash")) // edit -> project settings에서 키 할당
+        if (Input.GetButtonDown("Dash") && !isDashing) // 대쉬 중이 아닌 상태에서 Dash 입력 감지
         {
-            Vector3 dashVelocity = Vector3.Scale(transform.forward,
-                dashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * drags.x + 1)) / -Time.deltaTime),
-                0,
-                (Mathf.Log(1f / (Time.deltaTime * drags.z + 1)) / -Time.deltaTime)));
-            calcVelocity += dashVelocity;
+            StartCoroutine(Dash());
         }
 
         // Progress gravity
@@ -82,15 +80,30 @@ public class ControllerCHA : MonoBehaviour
         characterController.Move(calcVelocity * Time.deltaTime);
     }
 
+    // Dash 코루틴 추가
+    IEnumerator Dash()
+    {
+        isDashing = true;  // 대쉬 상태 활성화
+        animator.SetBool("Dash", true);  // Dash 애니메이션 활성화
 
+        Vector3 dashVelocity = Vector3.Scale(transform.forward,
+            dashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * drags.x + 1)) / -Time.deltaTime),
+            0,
+            (Mathf.Log(1f / (Time.deltaTime * drags.z + 1)) / -Time.deltaTime)));
+        calcVelocity += dashVelocity;
 
+        yield return new WaitForSeconds(dashDuration);  // 대쉬 지속 시간만큼 대기
+
+        animator.SetBool("Dash", false);  // Dash 애니메이션 비활성화
+        isDashing = false;  // 대쉬 상태 비활성화
+    }
 
     #region Helper Methods
 
     void CheckGroundStatus()
     {
         RaycastHit hitInfo;
-#if UNITY_EDITOR//충돌 검사를 위한 디버그용 그래픽 설정
+#if UNITY_EDITOR // 충돌 검사를 위한 디버그용 그래픽 설정
         Debug.DrawLine(transform.position + (Vector3.up * 0.1f),
             transform.position + (Vector3.up * 0.1f) + (Vector3.down * groundCheckDistance));
 #endif
