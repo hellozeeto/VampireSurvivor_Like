@@ -126,7 +126,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: da2927d28e4c92a44bcc9b6e7db995d6,
+  m_Motion: {fileID: -203655887218126122, guid: 822e4f0570a23544d881556f4ddeccc9,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -289,7 +289,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 659693534fdd9b64bb94c4c8168e40b6,
+  m_Motion: {fileID: -203655887218126122, guid: 822e4f0570a23544d881556f4ddeccc9,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -365,19 +365,19 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Move
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Dash
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -484,8 +484,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: e62d78cd8c0c0fa4fbc0f406d87a0e57,
-    type: 3}
+  m_Motion: {fileID: 7400000, guid: 8e695dc62abecf34292cd8b0e51c3a63, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -541,7 +540,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 7f8848ea2d9341e4aae45f9026c6fcc3,
+  m_Motion: {fileID: -203655887218126122, guid: 822e4f0570a23544d881556f4ddeccc9,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
