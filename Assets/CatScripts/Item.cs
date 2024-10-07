@@ -8,4 +8,6 @@ public class Item : MonoBehaviour
     public Type type;
     public int value;
 
+
+
 }

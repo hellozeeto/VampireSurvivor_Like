@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ControllerCHA : MonoBehaviour
 {
+    
+    
     // Start is called before the first frame update
     #region Variables
     public float speed = 5f;
@@ -27,11 +29,15 @@ public class ControllerCHA : MonoBehaviour
     private Vector3 calcVelocity;
     private bool isDashing = false;  // 대쉬 상태를 추적하는 변수
 
+   
+    Weapon eqipWeapon;
+
     #endregion Variables
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();  // Animator 컴포넌트 가져오기
+        eqipWeapon = GetComponentInChildren<Weapon>();
     }
 
     // Update is called once per frame
@@ -78,6 +84,11 @@ public class ControllerCHA : MonoBehaviour
         calcVelocity.z /= 1 + drags.z * Time.deltaTime;
 
         characterController.Move(calcVelocity * Time.deltaTime);
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            animator.SetTrigger("Shoot_Trigger");
+        }
     }
 
     // Dash 코루틴 추가
@@ -96,6 +107,13 @@ public class ControllerCHA : MonoBehaviour
 
         animator.SetBool("Dash", false);  // Dash 애니메이션 비활성화
         isDashing = false;  // 대쉬 상태 비활성화
+    }
+
+    public void  Attack()
+    {
+       eqipWeapon.Use(); // 총알 발사 및 애니메이션 트리거
+            
+        
     }
 
     #region Helper Methods
