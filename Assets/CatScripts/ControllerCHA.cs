@@ -113,7 +113,6 @@ public class ControllerCHA : MonoBehaviour
     {
        eqipWeapon.Use(); // 총알 발사 및 애니메이션 트리거
             
-        
     }
 
     #region Helper Methods
